@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Site de l'orchestre — Page d'accueil
 
-## Getting Started
+Projet Next.js (App Router) avec Tailwind CSS. Pour l'instant, une seule page :
+la page d'accueil, avec :
 
-First, run the development server:
+- un carrousel plein écran des 5 photos de concerts (`components/HeroCarousel.tsx`),
+  qui alterne automatiquement toutes les 5 secondes ;
+- une barre de navigation fixe (`components/Navbar.tsx`) qui devient opaque au scroll ;
+- un petit encart flottant "Prochains concerts" (`components/EventsPopup.tsx`), avec
+  des dates d'exemple à remplacer par les vrais événements ;
+- le contenu (qui sommes-nous, identité, fonctionnement, rôle sur le territoire,
+  pourquoi nous rejoindre) directement repris du PDF fourni, dans `app/page.tsx`.
+
+## Où modifier quoi
+
+- **Nom de l'orchestre** : remplacez "Harmonie de Tourouvre-au-Perche" dans
+  `app/layout.tsx` et `components/Navbar.tsx` — c'est un nom provisoire, à
+  remplacer par le vrai nom officiel de l'association.
+- **Événements à venir** : tableau `EVENTS` en haut de `components/EventsPopup.tsx`.
+- **Textes** : tout est dans `app/page.tsx` (tableaux `FONCTIONNEMENT`, `ROLE`,
+  `REJOINDRE`, et les paragraphes de la section "Qui sommes-nous").
+- **Photos** : `public/images/hero-1.jpg` à `hero-5.jpg`. Remplacez-les en gardant
+  les mêmes noms de fichiers, ou modifiez les chemins dans `HeroCarousel.tsx`.
+- **Couleurs / typographies** : `tailwind.config.js` (couleurs `ink`, `paper`,
+  `brass`, `burgundy`, `stone`) et `app/globals.css` (polices système, pas de
+  dépendance à Google Fonts pour que le build fonctionne hors-ligne).
+
+## Développement local
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Puis ouvrez http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build de production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm run start
+```
 
-## Learn More
+## Déploiement sur ton VPS OVH (HestiaCP + Nginx + PM2)
 
-To learn more about Next.js, take a look at the following resources:
+1. Copie le dossier du projet sur le VPS (scp ou git), par ex. dans
+   `/home/amadou/web/orchestre-perche`.
+2. Sur le VPS : `npm install && npm run build`.
+3. Lance l'app avec PM2 :
+   `pm2 start npm --name orchestre-site -- start -- -p 3000`
+   (ou fixe le port via la variable d'env `PORT=3000`).
+4. Configure Nginx (via HestiaCP ou un vhost custom) en reverse proxy vers
+   `127.0.0.1:3000`, comme prévu dans ton architecture (Nginx devant, PM2
+   derrière). C'est la même logique que pour ton futur backend Spring Boot,
+   sur un port différent.
+5. `pm2 save` pour que l'app redémarre après un reboot du VPS.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Pour l'instant seule la page d'accueil existe : les liens du menu (`L'orchestre`,
+`Notre rôle`, `Nous rejoindre`, `Contact`) pointent vers des sections de cette
+même page (ancres `#identite`, `#role`, etc.), pas vers de nouvelles pages.
