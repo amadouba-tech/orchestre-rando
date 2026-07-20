@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
 import { PHOTOS, CATEGORIES } from './photos';
+const prefix = process.env.NEXT_PUBLIC_BASE_PATH || ''; 
 
 export default function GalerieGrid() {
   const [filtre, setFiltre] = useState<string>('Toutes');
