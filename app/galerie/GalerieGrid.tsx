@@ -3,7 +3,8 @@
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
 import { PHOTOS, CATEGORIES } from './photos';
-const prefix = process.env.NEXT_PUBLIC_BASE_PATH || ''; 
+
+const prefix = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 export default function GalerieGrid() {
   const [filtre, setFiltre] = useState<string>('Toutes');
@@ -77,7 +78,7 @@ export default function GalerieGrid() {
             aria-label={`Agrandir : ${p.legende}`}
           >
             <Image
-              src={p.src}
+              src={`${prefix}${p.src}`}
               alt={p.alt}
               fill
               sizes="(max-width: 768px) 50vw, 33vw"
@@ -128,7 +129,7 @@ export default function GalerieGrid() {
           >
             <div className="relative aspect-[3/2] w-full">
               <Image
-                src={photo.src}
+                src={`${prefix}${photo.src}`}
                 alt={photo.alt}
                 fill
                 sizes="100vw"
