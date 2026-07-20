@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-
+const prefix = process.env.NEXT_PUBLIC_BASE_PATH || '';
 const SLIDES = [
   { src: `${prefix}/images/hero-1.jpg`, alt: "L'orchestre réuni sur l'herbe en plein soleil, le chef face aux musiciens" },
   { src: `${prefix}/images/hero-2.jpg`, alt: "Les musiciens rassemblés avant un défilé, dans la lumière de fin de journée" },
