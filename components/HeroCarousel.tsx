@@ -4,10 +4,10 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 const SLIDES = [
-  { src: '/images/hero-1.jpg', alt: "L'orchestre réuni sur l'herbe en plein soleil, le chef face aux musiciens" },
-  { src: '/images/hero-2.jpg', alt: "Les musiciens rassemblés avant un défilé, dans la lumière de fin de journée" },
-  { src: '/images/hero-3.jpg', alt: "L'orchestre défilant lors d'une kermesse estivale, sous les tentes et les guirlandes" },
-  { src: '/images/hero-4.jpg', alt: "Défilé du 11 novembre dans le bourg, devant le café-restaurant" },
+  { src: `${prefix}/images/hero-1.jpg`, alt: "L'orchestre réuni sur l'herbe en plein soleil, le chef face aux musiciens" },
+  { src: `${prefix}/images/hero-2.jpg`, alt: "Les musiciens rassemblés avant un défilé, dans la lumière de fin de journée" },
+  { src: `${prefix}/images/hero-3.jpg`, alt: "L'orchestre défilant lors d'une kermesse estivale, sous les tentes et les guirlandes" },
+  { src: `${prefix}/images/hero-4.jpg`, alt: "Défilé du 11 novembre dans le bourg, devant le café-restaurant" },
 ];
 
 const INTERVAL_MS = 5500;
